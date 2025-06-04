@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:c="http://java.sun.com/jstl/core">
+  
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>DSP RGPD</title>
+</h:head> 	  
+<h:body>
+	<h:form>
+	 	<div class="cabecera">
+	 		<div class="panel">
+		      <a href="login.xhtml" id="logo">
+	            <!-- <h:graphicImage name="img/logo.png" width="220" /> --> 
+	            <h:graphicImage name="img/logo.jpg"  width="250"/> 
+	          
+	            
+	          </a>
+           		 <p:panelGrid id="panelDir" columns="1" columnClasses="ui-grid-col-6,ui-grid-col-6" 
+            			layout="grid" styleClass="ui-panelgrid-blank" style="border:0px none; background-color:transparent;margin-top: 20px;float: right;margin-right: 15%;">
+            			
+					<p:commandButton action="#{loginBean.logout}" value="Salir"  ajax="false" rendered="#{loginBean.logged}" 
+					style="width: 115px;"></p:commandButton>
+					
+				</p:panelGrid>
+				<p:commandButton action="#{albaranBean.irAAlbaranes()}" value="Listado Envíos"  ajax="false" rendered="#{loginBean.logged}" 
+					style="width: 115px;"></p:commandButton>
+				<p:commandButton action="#{albaranBean.irAAlbaranesAdd()}" value="Alta de Envíos"  ajax="false" rendered="#{loginBean.logged}" 
+					style="width: 115px;"></p:commandButton>					
+				<p:commandButton action="#{direccionBean.irADirecciones()}" value="Direcciones"  ajax="false" rendered="#{loginBean.logged}" 
+					style="width: 115px;"></p:commandButton>
+			</div>
+		</div>
+	</h:form>	
+</h:body>
+</html>

@@ -1,0 +1,41 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+*.tmp
+*.bak
+*.swp
+
+# IntelliJ IDEA
+*.iml
+.idea/
+*.ipr
+*.iws
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Others
+*.war
+*.ear
+*.jar
+
+# VSCode
+.vscode/

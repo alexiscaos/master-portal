@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/fichajes.js"></script>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Registro de Presencia</title>
+	<style type="text/css">
+body {
+	font-family: Arial, sans-serif;
+	margin: 20px;
+}
+
+h1 {
+	text-align: center;
+	color: #333;
+	font-size: 28px;
+	margin-bottom: 30px;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.button-container {
+	text-align: center;
+	margin-bottom: 40px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	width:100%;
+}
+
+.primary-button {
+	background-color: #337ab7;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-right: 10px;
+	width: 17%;
+	margin-bottom: 30px;
+}
+
+.secondary-button {
+	background-color: white;
+	color: black;
+	border: black solid 1px;
+	padding: 10px 20px;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-right: 10px;
+	width: 17%;
+	margin-bottom: 30px;
+}
+
+.observations-section {
+	margin-top: 120px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.observations-label {
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.observations-textarea {
+	width: 60%;
+	height: 200px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.title {
+	display: flex;
+	justify-content: center;
+	font-size: xx-large;
+	margin-bottom: 15px;
+}
+
+#loader {
+	display: block;
+	text-align: center;
+	margin: 20px 0;
+	font-weight: bold;
+}
+
+.location-info {
+	text-align: center;
+	margin: 20px 0;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #f9f9f9;
+}
+
+#loaderDiv {
+	display: none;
+}
+</style>
+</h:head>
+<h:body>
+	<div id="loader">Obteniendo ubicación...</div>
+	<div id="loaderDiv">
+		<f:event type="preRenderView"
+			listener="#{presenciaBean.checkPresencia}" />
+
+		<h:outputText class="title" value="#{presenciaBean.presenciaEstado}" />
+
+		<h:form id="presenciaForm">
+			<div class="header">
+				<div class="button-container">
+					<h:commandButton value="Iniciar Presencia"
+						action="#{presenciaBean.registrarPresencia}"
+						styleClass="primary-button"
+						rendered="#{presenciaBean.presenciaBool}" />
+
+					<h:commandButton value="Terminar Presencia"
+						action="#{presenciaBean.terminarPresencia}"
+						styleClass="primary-button"
+						rendered="#{!presenciaBean.presenciaBool}" />
+
+
+					<h:commandButton value="Registrar Ausencia"
+						styleClass="secondary-button" />
+					<!-- action="{presenciaBean.terminarPresencia}" -->
+				</div>
+
+				<div>
+					<h:outputText value="#{presenciaBean.infoPresencia}"
+						rendered="#{!presenciaBean.presenciaBool}" />
+				</div>
+			</div>
+
+
+
+			<!-- asdas -->
+			<div class="observations-section">
+				<div class="observations-label">Observaciones:</div>
+				<h:inputTextarea styleClass="observations-textarea"
+					rendered="#{presenciaBean.presenciaBool}" />
+			</div>
+
+			<h:inputHidden id="latitudEntrada"
+				value="#{presenciaBean.latitudEntrada}"></h:inputHidden>
+			<h:inputHidden id="longitudEntrada"
+				value="#{presenciaBean.longitudEntrada}"></h:inputHidden>
+
+			<div class="location-info">
+				<strong>Latitud: </strong><span id="latitud"></span> <strong>
+					Longitud: </strong><span id="longitud"></span>
+			</div>
+		</h:form>
+	</div>
+</h:body>
+</html>
