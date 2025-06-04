@@ -24,8 +24,6 @@ Cada módulo es un subproyecto Maven con su propio `pom.xml`, gestionado por un 
 
 ## Instalación y ejecución
 
-> **Nota:** Las siguientes instrucciones pueden requerir ajustes según tu entorno y configuración IDE (por ejemplo, Eclipse).
-
 1. **Clona el repositorio:**
 git clone https://github.com/tu-usuario/master-portal.git
 cd master-portal
@@ -33,6 +31,7 @@ cd master-portal
 text
 
 2. **Importa el proyecto en Eclipse:**
+- Tener en cuenta que se necesita Eclipse Version: 2023-09 (4.29.0) debido al plugin Jboss tools 4.29. Por lo que sera necesario instalar un plugin que nos deje usar JAVA 21 en nuestro IDE
 - Selecciona "Importar proyecto Maven existente" desde Eclipse.
 - Elige la carpeta raíz del proyecto (`master-portal`).
 
