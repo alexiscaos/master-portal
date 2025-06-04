@@ -1,8 +1,13 @@
 package com.dsp.master.core.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.dsp.master.data.model.Ausencia;
 
 public interface  AusenciaService {
-	@Override
+	
+	public Ausencia registrarAusencia(Integer id, Integer idEmpresa, BigDecimal tiempoAus, Integer motivoAus, String observacionesAus, String traspasado);
+	
 	public Ausencia guardar(Ausencia ausencia);
 }
