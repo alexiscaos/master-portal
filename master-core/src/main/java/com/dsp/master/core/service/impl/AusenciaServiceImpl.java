@@ -22,7 +22,7 @@ public class AusenciaServiceImpl implements AusenciaService {
 
 	@Override
 	public Ausencia registrarAusencia(Integer id, Integer idEmpresa, BigDecimal tiempoAus,
-			Integer motivoAus, String observacionesAus, String traspasado) {
+			Integer motivoAus, String observacionesAus, Boolean traspasado) {
 		Ausencia ausencia = new Ausencia();
 		ausencia.setIdUsuario(id);
 		ausencia.setIdEmpresa(idEmpresa);

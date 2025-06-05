@@ -66,6 +66,7 @@ h1 {
 	margin-right: 10px;
 	width: 17%;
 	margin-bottom: 30px;
+	text-decoration: none;
 }
 
 .observations-section {
@@ -113,6 +114,7 @@ h1 {
 	background-color: #f9f9f9;
 }
 
+
 #loaderDiv {
 	display: none;
 }
@@ -139,15 +141,21 @@ h1 {
 						styleClass="primary-button"
 						rendered="#{!presenciaBean.presenciaBool}" />
 
+				<a class="secondary-button" href="ausencia.xhtml">
 
-					<h:commandButton value="Registrar Ausencia"
-						styleClass="secondary-button" />
+						Registrar Ausencia
+				</a>
+				
+				<h:commandButton look="primary" id="btnSalir" action="#{presenciaBean.salir()}" iconAwesome="fa-sign-out"/>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>								
 					<!-- action="{presenciaBean.terminarPresencia}" -->
 				</div>
 
 				<div>
 					<h:outputText value="#{presenciaBean.infoPresencia}"
-						rendered="#{!presenciaBean.presenciaBool}" />
+						rendered="#{!presenciaBean.presenciaBool}"
+						
+						 />
 				</div>
 			</div>
 

@@ -13,13 +13,13 @@ public class Empresa implements Serializable {
 	private static final long serialVersionUID =  1L;
 	
 	@Id
-    @Column(name="id_empresa_emp", nullable=false)
+    @Column(name="idEmp", nullable=false)
     private Integer idEmpresa;
     
-    @Column (name="nombre_emp", length = 80 )
+    @Column (name="nombrEmp", length = 80 )
     private String nombre;
     
-    @Column (name="ausencias_emp", length = 1 )
+    @Column (name="ausenciasEmp", length = 1 )
     private String ausencias;
 
 	public Integer getIdEmpresa() {

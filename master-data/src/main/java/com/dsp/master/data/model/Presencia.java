@@ -19,33 +19,33 @@ public class Presencia implements Serializable {
 	
     @Id
     @GeneratedValue
-    @Column(name="id_pre", nullable=false)
+    @Column(name="idPresencia", nullable=false)
     private Integer id;
     
-    @Column(name="id_empresa_pre", nullable=false)
+    @Column(name="idEmpresaPre", nullable=false)
     private Integer idEmpresa;
     
-    @Column(name="id_usuario_pre", nullable=false)
+    @Column(name="idUsuarioPre", nullable=false)
     private Integer idUsuario;
     
 	@Temporal(TemporalType.DATE)
-    @Column(name="fecha_entrada_pre", nullable=false)
+    @Column(name="fechaEntradaPre", nullable=false)
     private Date fechaEntrada;
 	
     @Temporal(TemporalType.DATE)
-    @Column(name="fecha_salida_pre")
+    @Column(name="fechaSalidaPre")
     private Date fechaSalida;
     
-    @Column (name="latitud_entrada_pre", length = 10, nullable=false)
+    @Column (name="latitudEntradaPre", length = 10, nullable=false)
     private String latitudEntrada;
     
-    @Column (name="longitud_entrada_pre", length = 10, nullable=false)
+    @Column (name="longitudEntradaPre", length = 10, nullable=false)
     private String longitudEntrada;
     
-    @Column (name="latitud_salida_pre", length = 10)
+    @Column (name="latitudsalidaPre", length = 10)
     private String latitudSalida;
     
-    @Column (name="longitud_salida_pre", length = 10)
+    @Column (name="longitudSalidaPre", length = 10)
     private String longitudSalida;
     
     public Integer getId() {

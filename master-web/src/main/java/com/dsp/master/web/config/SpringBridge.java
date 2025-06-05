@@ -6,6 +6,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.dsp.master.core.service.PresenciaService;
 import com.dsp.master.core.service.UserService;
 import com.dsp.master.core.service.AusenciaService;
+import com.dsp.master.core.service.MotausService;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
@@ -43,6 +44,13 @@ public class SpringBridge {
     @ApplicationScoped
     public AusenciaService getAusenciaService() {
         return getSpringContext().getBean(AusenciaService.class);
+    }
+    
+    @Produces
+    @Named("motausService")
+    @ApplicationScoped
+    public MotausService getMotausService() {
+    	return getSpringContext().getBean(MotausService.class);
     }
     
 }

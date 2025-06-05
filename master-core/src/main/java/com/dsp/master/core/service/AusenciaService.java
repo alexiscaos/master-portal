@@ -7,7 +7,7 @@ import com.dsp.master.data.model.Ausencia;
 
 public interface  AusenciaService {
 	
-	public Ausencia registrarAusencia(Integer id, Integer idEmpresa, BigDecimal tiempoAus, Integer motivoAus, String observacionesAus, String traspasado);
+	public Ausencia registrarAusencia(Integer id, Integer idEmpresa, BigDecimal tiempoAus, Integer motivoAus, String observacionesAus, Boolean traspasado);
 	
 	public Ausencia guardar(Ausencia ausencia);
 }

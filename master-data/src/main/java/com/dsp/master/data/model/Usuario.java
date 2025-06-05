@@ -15,10 +15,10 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
     
-    @Column (name="login_usuario_usr", nullable = false, length = 60 )
+    @Column (name="loginUsuario", nullable = false, length = 60 )
     private String loginUsuario;
     
-    @Column(name = "id_empresa_usr")
+    @Column(name = "idEmpresaUser")
     private Integer idEmpresa;
 
     public Integer getIdEmpresa() {

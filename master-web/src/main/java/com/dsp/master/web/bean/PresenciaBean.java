@@ -10,6 +10,10 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 import com.dsp.master.core.service.PresenciaService;
 import com.dsp.master.core.service.UserService;
@@ -65,8 +69,8 @@ public class PresenciaBean implements Serializable {
 	
 	public void checkPresencia() {
 		
-		Usuario usuario = userService.findByUserName(login);
-		System.out.println(usuario.getId());
+		Usuario usuario = userService.findByUserName(login = loginBean.getUsername()
+);
 		Presencia ultimaPresencia = presenciaService.encontrarUltimaPresenciaUsuario(3);
 		
 		if((ultimaPresencia==null) || (ultimaPresencia!=null && ultimaPresencia.getFechaSalida()!=null)) {
@@ -97,6 +101,7 @@ public class PresenciaBean implements Serializable {
 	        	this.presenciaBool = false;
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 	            ec.redirect(ec.getRequestContextPath() + "/presenciaRegistrada.xhtml");
+	            
 	        } else {
 	            FacesContext.getCurrentInstance().addMessage(null, 
 	                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario no encontrado"));
@@ -123,15 +128,31 @@ public class PresenciaBean implements Serializable {
 
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 	            ec.redirect(ec.getRequestContextPath() + "/presenciaRegistrada.xhtml");
+
+
 	        } else {
 	            FacesContext.getCurrentInstance().addMessage(null, 
 	                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario no encontrado"));
 	        }
 	    	
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 	}
+	
+	public String salir() throws IOException {
+	    System.out.println("In doLogout()");
+	    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+
+	    context.invalidateSession();
+
+	    context.redirect(context.getRequestContextPath() + "/login.xhtml");
+
+	    FacesContext.getCurrentInstance().responseComplete();
+	    System.out.println("End doLogout()");
+	    return null;
+	}
+
 
 
 	public Presencia getPresencia() {

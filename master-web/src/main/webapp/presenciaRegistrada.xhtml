@@ -42,7 +42,7 @@
         <p>Su entrada ha sido registrada correctamente.</p>
             <h:outputText value="#{presenciaBean.infoPresencia}"/>
         
-        <h:link outcome="/login.xhtml" value="Volver" styleClass="btn" />
+        <h:link outcome="/login.xhtml" value="Volver" styleClass="btn" action="#{presenciaBean.salir()}"/>
     </div>
 </h:body>
 </html>
