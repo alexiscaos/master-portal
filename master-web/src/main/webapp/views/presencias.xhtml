@@ -1,17 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
 	<script type="text/javascript"
 		src="#{facesContext.externalContext.requestContextPath}/resources/js/fichajes.js"></script>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Registro de Presencia</title>
 	<style type="text/css">
+/* Estilos originales se mantienen igual */
 body {
 	font-family: Arial, sans-serif;
 	margin: 20px;
@@ -29,6 +28,7 @@ h1 {
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
+	border: red solid 1px;
 }
 
 .button-container {
@@ -39,7 +39,7 @@ h1 {
 	align-items: center;
 	align-content: center;
 	justify-content: center;
-	width:100%;
+	width: 100%;
 }
 
 .primary-button {
@@ -114,12 +114,19 @@ h1 {
 	background-color: #f9f9f9;
 }
 
+.parametros {
+	border: red solid 1px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 #loaderDiv {
 	display: none;
 }
 </style>
 </h:head>
+
 <h:body>
 	<div id="loader">Obteniendo ubicación...</div>
 	<div id="loaderDiv">
@@ -128,54 +135,78 @@ h1 {
 
 		<h:outputText class="title" value="#{presenciaBean.presenciaEstado}" />
 
-		<h:form id="presenciaForm">
+		<!-- Formulario ENTRADA -->
+		<h:form id="presenciaForm" rendered="#{presenciaBean.presenciaBool}">
 			<div class="header">
 				<div class="button-container">
 					<h:commandButton value="Iniciar Presencia"
 						action="#{presenciaBean.registrarPresencia}"
-						styleClass="primary-button"
-						rendered="#{presenciaBean.presenciaBool}" />
+						styleClass="primary-button" />
 
+					<a class="secondary-button" href="ausencia.xhtml">Registrar
+						Ausencia</a>
+
+					<h:commandButton look="primary" id="btnSalir"
+						action="#{presenciaBean.salir}" iconAwesome="fa-sign-out" />
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</div>
+			</div>
+
+			<div class="parametros">
+				<h5 class="mt-0">Basic</h5>
+				<p:toggleSwitch />
+			</div>
+
+			<div class="observations-section">
+				<div class="observations-label">Observaciones:</div>
+				<h:inputTextarea styleClass="observations-textarea"
+					value="#{presenciaBean.presenciaObserv}" />
+			</div>
+
+			<!-- Campos ocultos ENTRADA -->
+			<h:inputHidden id="latitudEntrada"
+				value="#{presenciaBean.latitudEntrada}" />
+			<h:inputHidden id="longitudEntrada"
+				value="#{presenciaBean.longitudEntrada}" />
+		</h:form>
+
+		<!-- Formulario SALIDA -->
+		<h:form id="presenteForm" rendered="#{!presenciaBean.presenciaBool}">
+			<div class="header">
+				<div class="button-container">
 					<h:commandButton value="Terminar Presencia"
 						action="#{presenciaBean.terminarPresencia}"
-						styleClass="primary-button"
-						rendered="#{!presenciaBean.presenciaBool}" />
+						styleClass="primary-button" />
 
-				<a class="secondary-button" href="ausencia.xhtml">
+					<a class="secondary-button" href="ausencia.xhtml">Registrar
+						Ausencia</a>
 
-						Registrar Ausencia
-				</a>
-				
-				<h:commandButton look="primary" id="btnSalir" action="#{presenciaBean.salir()}" iconAwesome="fa-sign-out"/>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>								
-					<!-- action="{presenciaBean.terminarPresencia}" -->
+					<h:commandButton look="primary" id="btnSalir"
+						action="#{presenciaBean.salir}" iconAwesome="fa-sign-out" />
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 				</div>
 
 				<div>
-					<h:outputText value="#{presenciaBean.infoPresencia}"
-						rendered="#{!presenciaBean.presenciaBool}"  />
+					<h:outputText value="#{presenciaBean.infoPresencia}" />
 				</div>
 			</div>
 
-
-
-			<!-- asdas -->
-			<div class="observations-section">
-				<div class="observations-label">Observaciones:</div>
-				<h:inputTextarea styleClass="observations-textarea" value="#{presenciaBean.presenciaObserv}"
-					rendered="#{presenciaBean.presenciaBool}" />
-			</div>
-
-			<h:inputHidden id="latitudEntrada"
-				value="#{presenciaBean.latitudEntrada}"></h:inputHidden>
-			<h:inputHidden id="longitudEntrada"
-				value="#{presenciaBean.longitudEntrada}"></h:inputHidden>
-
-			<div class="location-info">
-				<strong>Latitud: </strong><span id="latitud"></span> <strong>
-					Longitud: </strong><span id="longitud"></span>
-			</div>
+			<!-- Campos ocultos SALIDA -->
+			<h:inputHidden id="latitudSalida"
+				value="#{presenciaBean.latitudSalida}" />
+			<h:inputHidden id="longitudSalida"
+				value="#{presenciaBean.longitudSalida}" />
+			<h:inputHidden id="cierreAut" value="N" />
+			<h:inputHidden id="cierreAutomatico" value="N" />
 		</h:form>
+
+		<!-- Display de ubicación (compartido) -->
+		<div class="location-info">
+			<strong>Latitud: </strong><span id="latitud"></span> <strong>Longitud:
+			</strong><span id="longitud"></span>
+		</div>
 	</div>
 </h:body>
 </html>

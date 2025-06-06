@@ -24,31 +24,26 @@ public class PresenciaServiceImpl implements PresenciaService {
 	}
     
     @Override
-    public Presencia registrarEntrada(Integer id, Integer idEmpresa, String observaciones, String latitudEntrada, String longitudEntrada) {
+    public Presencia registrarEntrada(Integer id, Integer idEmpresa, String observaciones, String coordEnt) {
     	Presencia presencia = new Presencia();
     	presencia.setIdUsuario(id);
-    	presencia.setIdEmpresa(idEmpresa);
-    	
+    	presencia.setIdEmpresa(idEmpresa);    	
     	java.util.Date ahora = new java.util.Date();
     	presencia.setFechaEntrada(new Date((ahora.getTime())));
-    	presencia.setLatitudEntrada(latitudEntrada);
-    	presencia.setLongitudEntrada(longitudEntrada);
-    	
+    	presencia.setCoordEnt(coordEnt);    	
     	return presenciaRepository.save(presencia);
 
     }
 
 	@Override
-	public Presencia registrarSalida(Integer id, String observaciones, String latitudSalida, String longitudSalida) {
+	public Presencia registrarSalida(Integer id, String observaciones, String coordSal) {
 		Presencia ultimaPresencia = encontrarUltimaPresenciaUsuario(id);
 		
 		if(ultimaPresencia != null && ultimaPresencia.getFechaSalida() ==null) {
 			java.util.Date ahora = new java.util.Date();
-			ultimaPresencia.setFechaSalida(new Date(ahora.getTime()));
-			
-	    	ultimaPresencia.setLatitudSalida(latitudSalida);
-	    	ultimaPresencia.setLongitudSalida(longitudSalida);
-			return presenciaRepository.save(ultimaPresencia);
+			ultimaPresencia.setFechaSalida(new Date(ahora.getTime()));		
+	    	ultimaPresencia.setCoordSal(coordSal);
+	    	return presenciaRepository.save(ultimaPresencia);
 		}
 		
 		return null;

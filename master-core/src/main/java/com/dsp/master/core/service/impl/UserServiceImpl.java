@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Usuario findByUserName(String userName) {
         System.out.println("Buscando usuario con nombre: [" + userName + "]");
-        Usuario usuario = userRepository.findByUserName(userName);
+        Usuario usuario = userRepository.findByLoginUsuario(userName);
         if (usuario == null) {
             System.out.println("Usuario no encontrado");
         } else {

@@ -6,6 +6,7 @@ import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -18,7 +19,7 @@ public class Presencia implements Serializable {
 	private static final long serialVersionUID =1L;
 	
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idPresencia", nullable=false)
     private Integer idPresencia;
     
@@ -36,17 +37,28 @@ public class Presencia implements Serializable {
     @Column(name="fechaSalidaPre")
     private Date fechaSalida;
     
-    @Column (name="latitudEntradaPre", length = 10, nullable=false)
-    private String latitudEntrada;
+	@Column (name="coordEntPre", length = 23, nullable=false)
+    private String coordEnt;
     
-    @Column (name="longitudEntradaPre", length = 10, nullable=false)
-    private String longitudEntrada;
+    @Column (name="coordSalPre", length = 23)
+    private String coordSal;
     
-    @Column (name="latitudsalidaPre", length = 10)
-    private String latitudSalida;
     
-    @Column (name="longitudSalidaPre", length = 10)
-    private String longitudSalida;
+    public String getCoordEnt() {
+		return coordEnt;
+	}
+
+	public void setCoordEnt(String coordEnt) {
+		this.coordEnt = coordEnt;
+	}
+
+	public String getCoordSal() {
+		return coordSal;
+	}
+
+	public void setCoordSal(String coordSal) {
+		this.coordSal = coordSal;
+	}
     
     public Integer getId() {
 		return idPresencia;
@@ -92,37 +104,14 @@ public class Presencia implements Serializable {
 		return serialVersionUID;
 	}
 
-	public String getLatitudEntrada() {
-		return latitudEntrada;
+	public Integer getIdPresencia() {
+		return idPresencia;
 	}
 
-	public void setLatitudEntrada(String latitudEntrada) {
-		this.latitudEntrada = latitudEntrada;
+	public void setIdPresencia(Integer idPresencia) {
+		this.idPresencia = idPresencia;
 	}
 
-	public String getLongitudEntrada() {
-		return longitudEntrada;
-	}
-
-	public void setLongitudEntrada(String longitudEntrada) {
-		this.longitudEntrada = longitudEntrada;
-	}
-
-	public String getLatitudSalida() {
-		return latitudSalida;
-	}
-
-	public void setLatitudSalida(String latitudSalida) {
-		this.latitudSalida = latitudSalida;
-	}
-
-	public String getLongitudSalida() {
-		return longitudSalida;
-	}
-
-	public void setLongitudSalida(String longitudSalida) {
-		this.longitudSalida = longitudSalida;
-	}
 
 	
 }

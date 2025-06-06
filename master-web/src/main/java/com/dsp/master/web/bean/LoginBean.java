@@ -60,7 +60,7 @@ public class LoginBean implements Serializable {
                 // Inicio de sesión exitoso
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "¡Bienvenido!"));
                 // Redirigir a la página principal (index.xhtml)
-                context.getExternalContext().redirect("./views/presencias.xhtml");
+                context.getExternalContext().redirect("views/presencias.xhtml");
                 return null;
             } else {
                 // Inicio de sesión fallido

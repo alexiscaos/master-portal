@@ -7,9 +7,9 @@ public interface PresenciaService {
 	
 	public Presencia encontrarUltimaPresenciaUsuario(Integer id);
 	
-	public Presencia registrarEntrada(Integer id, Integer idEmpresa, String observaciones, String latitudEntrada, String longitudEntrada);
+	public Presencia registrarEntrada(Integer id, Integer idEmpresa, String observaciones, String coordEnt);
 	
-	public Presencia registrarSalida(Integer id, String observaciones, String latitudSalida, String longitudSalida);
+	public Presencia registrarSalida(Integer id, String observaciones, String coordSal);
 	
 	public Presencia guardar(Presencia presencia);
 	

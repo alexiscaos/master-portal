@@ -8,12 +8,12 @@ function delayAjax(inputId) {
 }
 
 function setLocation(){
-	document.getElementById("loader").innerHTML = "Obteniendo su ubicación...";
-	
+
 	if (navigator.geolocation) {
+		
 		navigator.geolocation.getCurrentPosition(setPosition, showError);
 	} else { 
-		document.getElementById("loader").innerHTML = "La geolocalización no está soportada en este navegador.";
+		x.innerHTML = "Geolocation is not supported by this browser.";
 	}
 }
 
@@ -47,8 +47,7 @@ function setPosition(position) {
 		document.getElementById("longitud").textContent = position.coords.longitude;
 		
 		//getAddress(position.coords.latitude, position.coords.longitude);
-		
-		//compruebo si hay que hacer el cierre aotomatico
+/*
 		if(document.getElementById("cierreAutomatico").value == "ANTERIOR"){
 			
 			console.log("submit salida");
@@ -63,7 +62,9 @@ function setPosition(position) {
 			console.log("salida 2");
 			document.getElementById("presenteForm:cierreAut").value = "N";
 		}
-		
+
+		//compruebo si hay que hacer el cierre aotomatico
+*/
 		document.getElementById("loader").style.display = "none";
 		document.getElementById("loaderDiv").style.display = "block";
 		
@@ -75,23 +76,22 @@ function setPosition(position) {
 function showError(error) {
 	switch(error.code) {
     	case error.PERMISSION_DENIED:
-    		document.getElementById("loader").innerHTML = "Usuario ha denegado el permiso de geolocalización.";
+    		console.log("User denied the request for Geolocation.");
     		break;
 		case error.POSITION_UNAVAILABLE:
-			document.getElementById("loader").innerHTML = "La información de ubicación no está disponible.";
+			console.log("Location information is unavailable.");
 			break;
 		case error.TIMEOUT:
-			document.getElementById("loader").innerHTML = "La solicitud de geolocalización ha expirado.";
+			console.log("The request to get user location timed out.");
 			break;
 		case error.UNKNOWN_ERROR:
-			document.getElementById("loader").innerHTML = "Ha ocurrido un error desconocido.";
+			console.log("An unknown error occurred.");
 		    break;
 	}
 	
-	setTimeout(function() {
-		document.getElementById("loader").style.display = "none";
-		document.getElementById("loaderDiv").style.display = "block";
-	}, 3000);
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("loaderDiv").style.display = "block";
+	document.getElementById("jumbotron").style.display = "none";
 }
 
 window.onload = setLocation;

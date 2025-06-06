@@ -72,7 +72,7 @@ public class PresenciaBean implements Serializable {
 		
 		Usuario usuario = userService.findByUserName(login = loginBean.getUsername()
 );
-		Presencia ultimaPresencia = presenciaService.encontrarUltimaPresenciaUsuario(3);
+		Presencia ultimaPresencia = presenciaService.encontrarUltimaPresenciaUsuario(usuario.getIdUsuario());
 		
 		if((ultimaPresencia==null) || (ultimaPresencia!=null && ultimaPresencia.getFechaSalida()!=null)) {
 			System.out.println("USUARIO NO PRESENTE");
@@ -94,15 +94,11 @@ public class PresenciaBean implements Serializable {
 	        if (usuario != null) {
  
 	            
-	            presenciaService.registrarEntrada(usuario.getIdUsuario(),1, estadoRegistro, 
-	            		(latitudEntrada.length()<=10 ? latitudEntrada : latitudEntrada.substring(0, 10) ), 
-	            		longitudEntrada.length()<=10 ? longitudEntrada : longitudEntrada.substring(0, 10)
-	            		);
-	            
+	            presenciaService.registrarEntrada(usuario.getIdUsuario(),1, estadoRegistro, concatenaCoords(latitudEntrada, longitudEntrada));
 	        	this.presenciaBool = false;
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	            ec.redirect(ec.getRequestContextPath() + "./views/presenciaRegistrada.xhtml");
-	            
+	            ec.redirect(ec.getRequestContextPath() + "/views/presenciaRegistrada.xhtml");
+
 	        } else {
 	            FacesContext.getCurrentInstance().addMessage(null, 
 	                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario no encontrado"));
@@ -121,14 +117,11 @@ public class PresenciaBean implements Serializable {
 	    	
 	    	if (usuario != null) {
 
-		    	presenciaService.registrarSalida(usuario.getIdUsuario(), presenciaObserv,(
-		    			latitudEntrada.length()<=10 ? latitudEntrada : latitudEntrada.substring(0, 10) ), 
-	            		longitudEntrada.length()<=10 ? longitudEntrada : longitudEntrada.substring(0, 10)
-	            		);
+		    	presenciaService.registrarSalida(usuario.getIdUsuario(), presenciaObserv, concatenaCoords(latitudSalida, longitudSalida));
 				this.estadoRegistro = "Registrar  presencia (ENTRADA)";
 
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	            ec.redirect(ec.getRequestContextPath() + "./views/presenciaRegistrada.xhtml");
+	            ec.redirect(ec.getRequestContextPath() + "/views/presenciaRegistrada.xhtml");
 
 
 	        } else {
@@ -142,19 +135,30 @@ public class PresenciaBean implements Serializable {
 	}
 	
 	public String salir() throws IOException {
-	    System.out.println("In doLogout()");
 	    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
 	    context.invalidateSession();
 
-	    context.redirect(context.getRequestContextPath() + "./views/login.xhtml");
+	    context.redirect(context.getRequestContextPath() + "/login.xhtml");
 
 	    FacesContext.getCurrentInstance().responseComplete();
-	    System.out.println("End doLogout()");
 	    return null;
 	}
 
-
+	private String concatenaCoords(String latitud, String longitud) {
+		
+		if(latitud.length()>=10) {
+			latitud= latitud.substring(0, 10) ;
+		}
+		
+		if(longitud.length()>=10) {
+			longitud= longitud.substring(0, 10) ;
+		}
+		
+		System.out.println(latitud+", "+longitud);
+		
+		return  latitud+", "+longitud;
+	}
 
 	public Presencia getPresencia() {
 		return presencia;
