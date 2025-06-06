@@ -22,8 +22,8 @@ public class DataBaseConfig {
 	        DriverManagerDataSource dataSource = new DriverManagerDataSource();
 	        dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
 	        dataSource.setUrl("jdbc:mariadb://localhost:3307/maestro");
-	        dataSource.setUsername("root");
-	        dataSource.setPassword("C@mbiada25");
+	        dataSource.setUsername("maestro");
+	        dataSource.setPassword("t8komeNQecL4Xjf");
 	        return dataSource;
 	    }
 

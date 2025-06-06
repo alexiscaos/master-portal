@@ -58,6 +58,7 @@ public class PresenciaBean implements Serializable {
 	private String latitudSalida;
 	
 	private String longitudSalida;
+	private String presenciaObserv;
 	
 	
 	@PostConstruct
@@ -93,14 +94,14 @@ public class PresenciaBean implements Serializable {
 	        if (usuario != null) {
  
 	            
-	            presenciaService.registrarEntrada(usuario.getId(),1, estadoRegistro, 
+	            presenciaService.registrarEntrada(usuario.getIdUsuario(),1, estadoRegistro, 
 	            		(latitudEntrada.length()<=10 ? latitudEntrada : latitudEntrada.substring(0, 10) ), 
 	            		longitudEntrada.length()<=10 ? longitudEntrada : longitudEntrada.substring(0, 10)
 	            		);
 	            
 	        	this.presenciaBool = false;
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	            ec.redirect(ec.getRequestContextPath() + "/presenciaRegistrada.xhtml");
+	            ec.redirect(ec.getRequestContextPath() + "./views/presenciaRegistrada.xhtml");
 	            
 	        } else {
 	            FacesContext.getCurrentInstance().addMessage(null, 
@@ -120,14 +121,14 @@ public class PresenciaBean implements Serializable {
 	    	
 	    	if (usuario != null) {
 
-		    	presenciaService.registrarSalida(usuario.getId(), null,(
+		    	presenciaService.registrarSalida(usuario.getIdUsuario(), presenciaObserv,(
 		    			latitudEntrada.length()<=10 ? latitudEntrada : latitudEntrada.substring(0, 10) ), 
 	            		longitudEntrada.length()<=10 ? longitudEntrada : longitudEntrada.substring(0, 10)
 	            		);
 				this.estadoRegistro = "Registrar  presencia (ENTRADA)";
 
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	            ec.redirect(ec.getRequestContextPath() + "/presenciaRegistrada.xhtml");
+	            ec.redirect(ec.getRequestContextPath() + "./views/presenciaRegistrada.xhtml");
 
 
 	        } else {
@@ -146,7 +147,7 @@ public class PresenciaBean implements Serializable {
 
 	    context.invalidateSession();
 
-	    context.redirect(context.getRequestContextPath() + "/login.xhtml");
+	    context.redirect(context.getRequestContextPath() + "./views/login.xhtml");
 
 	    FacesContext.getCurrentInstance().responseComplete();
 	    System.out.println("End doLogout()");
@@ -237,6 +238,14 @@ public class PresenciaBean implements Serializable {
 
 	public void setLongitudSalida(String longitudSalida) {
 		this.longitudSalida = longitudSalida;
+	}
+
+	public String getPresenciaObserv() {
+		return presenciaObserv;
+	}
+
+	public void setPresenciaObserv(String presenciaObserv) {
+		this.presenciaObserv = presenciaObserv;
 	}
 	
 	

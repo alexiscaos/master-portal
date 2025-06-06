@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Empresas</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:dataTable value="#{empresaBean.empresas}" var="empresa" styleClass="table">
+            <p:column headerText="ID">
+                <h:outputText value="#{empresa.id}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{empresa.nombre}" />
+            </p:column>
+            <p:column headerText="Activo">
+                <h:outputText value="#{empresa.activo ? 'Sí' : 'No'}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>

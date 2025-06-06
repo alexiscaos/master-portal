@@ -3,6 +3,7 @@ package com.dsp.master.web.bean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,7 @@ public class AusenciaBean implements Serializable {
 	private String Observaciones;
 	private BigDecimal horas;
 	private BigDecimal minutos;
+	private BigDecimal tiempoAus;
 	private Integer motivoSeleccionado;
 
 	@PostConstruct
@@ -66,10 +68,12 @@ public class AusenciaBean implements Serializable {
 	        Usuario usuario = userService.findByUserName(loginBean.getUsername());
 	        
 	        if (usuario != null) {
-	        	 BigDecimal num1 = new BigDecimal("123.456");
-				ausenciaService.registrarAusencia(usuario.getId(), 2,	num1, motivoSeleccionado, null, false );
-
-	            
+		        BigDecimal sixty = new BigDecimal(60);
+		         minutos = minutos.divide(sixty, 2, RoundingMode.CEILING);
+			        setTiempoAus(horas.add(minutos));
+		         System.out.println(tiempoAus+"");
+		         
+				ausenciaService.registrarAusencia(usuario.getIdUsuario(), usuario.getEmpresaId(),tiempoAus, motivoSeleccionado, Observaciones);
 	            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 	            ec.redirect(ec.getRequestContextPath() + "/login.xhtml");
 	            
@@ -93,7 +97,7 @@ public class AusenciaBean implements Serializable {
 		Usuario usuario = userService.findByUserName(loginBean.getUsername());
 
     	if(usuario != null) {
-    		List<Motaus> listaMotivosAusencias = motausService.findByIdEmpresa(usuario.getIdEmpresa());
+    		List<Motaus> listaMotivosAusencias = motausService.findByIdEmpresa(usuario.getEmpresaId());
 
     		
     		for(Motaus m : listaMotivosAusencias) {
@@ -106,12 +110,6 @@ public class AusenciaBean implements Serializable {
 	}
     
     
-	public LoginBean getLoginBean() {
-		return loginBean;
-	}
-	public void setLoginBean(LoginBean loginBean) {
-		this.loginBean = loginBean;
-	}
 	public Ausencia getAusencia() {
 		return ausencia;
 	}
@@ -156,5 +154,11 @@ public class AusenciaBean implements Serializable {
 	}
 	public void setMotivoSeleccionado(Integer motivoSeleccionado) {
 		this.motivoSeleccionado = motivoSeleccionado;
+	}
+	public BigDecimal getTiempoAus() {
+		return tiempoAus;
+	}
+	public void setTiempoAus(BigDecimal tiempoAus) {
+		this.tiempoAus = tiempoAus;
 	}
 }

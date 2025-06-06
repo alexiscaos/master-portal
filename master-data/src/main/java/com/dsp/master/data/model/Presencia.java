@@ -20,7 +20,7 @@ public class Presencia implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="idPresencia", nullable=false)
-    private Integer id;
+    private Integer idPresencia;
     
     @Column(name="idEmpresaPre", nullable=false)
     private Integer idEmpresa;
@@ -49,11 +49,11 @@ public class Presencia implements Serializable {
     private String longitudSalida;
     
     public Integer getId() {
-		return id;
+		return idPresencia;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.idPresencia = id;
 	}
 
 	public Integer getIdEmpresa() {

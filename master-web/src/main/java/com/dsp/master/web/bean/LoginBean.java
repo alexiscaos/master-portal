@@ -2,16 +2,15 @@ package com.dsp.master.web.bean;
 
 import java.io.Serializable;
 
-
 import com.dsp.master.core.service.UserService;
 import com.dsp.master.data.model.Usuario;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.SessionScoped;
 
 
 @Named ("loginBean")
@@ -55,13 +54,13 @@ public class LoginBean implements Serializable {
             // Lógica de autenticación usando el servicio
             Usuario user = userService.findByUserName(username);
             System.out.println(username);
-            System.out.println(user.getId());
+            System.out.println(user.getIdUsuario());
 
             if (user != null && user.getPassword().equals(password)) {
                 // Inicio de sesión exitoso
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "¡Bienvenido!"));
                 // Redirigir a la página principal (index.xhtml)
-                context.getExternalContext().redirect("main.xhtml");
+                context.getExternalContext().redirect("./views/presencias.xhtml");
                 return null;
             } else {
                 // Inicio de sesión fallido

@@ -24,11 +24,11 @@ public class Ausencia implements Serializable{
     @Column(name="idAus", nullable=false)
     private Integer id;
     
-    @Column(name="id_empresaAus", nullable=false)
-    private Integer idEmpresa;
+    @Column(name="idEmpresaAus", nullable=false)
+    private Integer empresaId;
     
-    @Column(name="id_usuarioAus", nullable=false)
-    private Integer idUsuario;
+    @Column(name="idUsuarioAus", nullable=false)
+    private Integer usuarioId;
     
     @Column(name="fechaAus", nullable=false)
     private Date fecha;
@@ -57,10 +57,6 @@ public class Ausencia implements Serializable{
     @Transient
     private BigDecimal minutos;
     
-	public Ausencia() {
-
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -70,19 +66,19 @@ public class Ausencia implements Serializable{
 	}
 
 	public Integer getIdEmpresa() {
-		return idEmpresa;
+		return empresaId;
 	}
 
 	public void setIdEmpresa(Integer idEmpresa) {
-		this.idEmpresa = idEmpresa;
+		this.empresaId = idEmpresa;
 	}
 
 	public Integer getIdUsuario() {
-		return idUsuario;
+		return usuarioId;
 	}
 
 	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+		this.usuarioId = idUsuario;
 	}
 
 	public Date getFecha() {
